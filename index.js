@@ -16,7 +16,7 @@ var extentions = [
 var PLUGIN_NAME = 'gulp-spritegen';
 
 var templates = {
-  json: path.join(__dirname, './lib/templates.json')
+  json: path.join(__dirname, './lib/templates/template.json')
 };
 
 module.exports = function (config) {
