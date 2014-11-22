@@ -3,12 +3,14 @@ var gutil = require('gulp-util');
 var path = require('path');
 var layout = require('layout');
 var _ = require('lodash');
+var ejs = require('ejs');
 
 var imageLib = require('./lib/image');
 var layerLib = require('./lib/layer-info');
 
-var engines = {};
-engines['json'] = require('./lib/engines/json');
+var templates = {
+  json: './lib/templates.json'
+};
 
 module.exports = function (config) {
   var defaultConfig = {
@@ -62,23 +64,30 @@ module.exports = function (config) {
           contents: imageLib.generateOutput(layerInfo)
         }));
       });
-      var engineFunc = null;
+
       if (_.isFunction(options.engine)) {
-        engineFunc = options.engine;
-      } else if (_.isString(options.engine)) {
-        if (engineFunc[options.engine]) {
-          engineFunc = engines[options.engine];
-        } else {
-          // PARSING FILE
+        var engineRes = options.engine(parser.result);
+        if (engineRes) {
+          self.push(engineRes);
         }
+      } else {
+        if (templates[options.engine]) {
+          template = templates[options.engine];
+        } else {
+          // TODO check file path
+          template = options.engine;
+        }
+
+        content = ejs.renderFile(template, {result: parser.result});
+        ext = path.extname(template);
+
+        self.push(new gutil.File({
+          cwd: dir,
+          base: dir,
+          path: path.join(dir, options.spriteMeta + '.' + ext),
+          contents: content
+        }));
       }
-      var engineRes = engineFunc.call({}, parser.result);
-      self.push(new gutil.File({
-        cwd: dir,
-        base: dir,
-        path: path.join(dir, options.spriteMeta + '.' + engineRes.ext),
-        contents: engineRes.content
-      }));
       cb();
     }
   );

@@ -2,16 +2,21 @@
   "name": "gulp-spritegen",
   "version": "0.0.1",
   "private": true,
-  "dependencies" : {
-    "gulp-util": "3.0",
-    "through2": "0.6",
-    "lodash": "2.4",
+  "scripts": {
+    "lint": "jshint index.js test/ lib/"
+  },
+  "dependencies": {
     "async": "0.9",
     "canvas": "1.1",
+    "ejs": "^1.0.0",
+    "gulp-util": "3.0",
     "layout": "2.0",
-    "parse-image-dimensions": "1.0"
+    "lodash": "2.4",
+    "parse-image-dimensions": "1.0",
+    "through2": "0.6"
   },
   "devDependencies": {
-    "gulp": "3.8"
+    "gulp": "3.8",
+    "jshint": "^2.5.10"
   }
 }
