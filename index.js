@@ -9,7 +9,7 @@ var imageLib = require('./lib/image');
 var layerLib = require('./lib/layer-info');
 
 var templates = {
-  json: './lib/templates.json'
+  json: path.join(__dirname, './lib/templates.json')
 };
 
 module.exports = function (config) {
@@ -71,6 +71,7 @@ module.exports = function (config) {
           self.push(engineRes);
         }
       } else {
+        var template;
         if (templates[options.engine]) {
           template = templates[options.engine];
         } else {
