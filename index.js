@@ -101,7 +101,7 @@ module.exports = function (config) {
         ext = path.extname(template);
         ejs.renderFile(template, {result: parser.result}, function(err, content){
           if (err) {
-            return cb(new new PluginError(PLUGIN_NAME, err));
+            return cb(new PluginError(PLUGIN_NAME, err));
           }
           cb(null, new gutil.File({
             cwd: cwd,
