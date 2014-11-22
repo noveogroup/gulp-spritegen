@@ -98,7 +98,7 @@ module.exports = function (config) {
           template = options.engine;
         }
 
-        /*content = ejs.renderFile(template, {result: parser.result});
+        content = ejs.renderFile(template, {result: parser.result});
         ext = path.extname(template);
 
         self.push(new gutil.File({
@@ -106,7 +106,7 @@ module.exports = function (config) {
           base: dir,
           path: path.join(dir, options.spriteMeta + '.' + ext),
           contents: content
-        }));*/
+        }));
       }
       cb();
     }
