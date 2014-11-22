@@ -1,5 +1,6 @@
 var through = require('through2');
 var gutil = require('gulp-util');
+var PluginError = gutil.PluginError;
 var path = require('path');
 var layout = require('layout');
 var _ = require('lodash');
@@ -7,8 +8,15 @@ var _ = require('lodash');
 var imageLib = require('./lib/image');
 var layerLib = require('./lib/layer-info');
 
-var engines = {};
-engines['json'] = require('./lib/engines/json');
+var engines = {
+  json: require('./lib/engines/json')
+};
+
+var extentions = [
+  'png'
+];
+
+var PLUGIN_NAME = 'gulp-spritegen';
 
 module.exports = function (config) {
   var defaultConfig = {
@@ -27,6 +35,14 @@ module.exports = function (config) {
   var stream = through.obj(
     function (file, enc, cb) {
       if (file.isNull()) return cb();
+      if (file.isStream()) {
+        this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported'));
+        return cb();
+      }
+      if (-1 == extentions.indexOf(path.extension(file.path))) {
+        this.emit('error', new PluginError(PLUGIN_NAME, 'Invalid type of file: ' + file.path));
+        return cb();
+      }
       dir = file.base;
       images.push(imageLib.getImageObject(file));
       cb();
@@ -69,7 +85,7 @@ module.exports = function (config) {
         if (engineFunc[options.engine]) {
           engineFunc = engines[options.engine];
         } else {
-          // PARSING FILE
+          // TODO: PARSING FILE
         }
       }
       var engineRes = engineFunc.call({}, parser.result);
