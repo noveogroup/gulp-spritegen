@@ -32,6 +32,7 @@ module.exports = function (config) {
   }
   var images = [];
   var dir = '';
+  var cwd = '';
   var stream = through.obj(
     function (file, enc, cb) {
       if (file.isNull()) return cb();
@@ -43,6 +44,7 @@ module.exports = function (config) {
         this.emit('error', new PluginError(PLUGIN_NAME, 'Invalid type of file: ' + file.path));
         return cb();
       }
+      cwd = file.cwd;
       dir = file.base;
       images.push(imageLib.getImageObject(file));
       cb();
@@ -90,7 +92,7 @@ module.exports = function (config) {
       }
       var engineRes = engineFunc.call({}, parser.result);
       self.push(new gutil.File({
-        cwd: dir,
+        cwd: cwd,
         base: dir,
         path: path.join(dir, options.spriteMeta + '.' + engineRes.ext),
         contents: engineRes.content
