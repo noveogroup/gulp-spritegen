@@ -62,10 +62,11 @@ module.exports = function (config) {
             meta: {
               name: image.name,
               content: image.content,
-              ratio: ratio
+              ratio: ratio,
+              gutter: options.gutter * ratio
             },
-            width: image.size.width * ratio,
-            height: image.size.height * ratio
+            width: (image.size.width + 2 * options.gutter) * ratio,
+            height: (image.size.height + 2 * options.gutter) * ratio
           };
           if (layerItem.width > image.content.width ||
               layerItem.height > image.content.height) {
@@ -74,7 +75,7 @@ module.exports = function (config) {
           layer.addItem(layerItem);
         });
         var layerInfo = layer['export']();
-        parser.addLayerInfo(layerInfo);
+        parser.addLayerInfo(layerInfo, options.spriteImg);
         self.push(new gutil.File({
           cwd: dir,
           base: dir,
@@ -97,7 +98,7 @@ module.exports = function (config) {
           template = options.engine;
         }
 
-        content = ejs.renderFile(template, {result: parser.result});
+        /*content = ejs.renderFile(template, {result: parser.result});
         ext = path.extname(template);
 
         self.push(new gutil.File({
@@ -105,7 +106,7 @@ module.exports = function (config) {
           base: dir,
           path: path.join(dir, options.spriteMeta + '.' + ext),
           contents: content
-        }));
+        }));*/
       }
       cb();
     }
