@@ -16,7 +16,7 @@ var extentions = [
 var PLUGIN_NAME = 'gulp-spritegen';
 
 var templates = {
-  json: path.join(__dirname, './lib/templates.json')
+  json: path.join(__dirname, './lib/templates/template.json')
 };
 
 module.exports = function (config) {
@@ -87,8 +87,9 @@ module.exports = function (config) {
       if (_.isFunction(options.engine)) {
         var engineRes = options.engine(parser.result);
         if (engineRes) {
-          self.push(engineRes);
+          return cb(null, engineRes);
         }
+        return cb();
       } else {
         var template;
         if (templates[options.engine]) {
@@ -98,17 +99,19 @@ module.exports = function (config) {
           template = options.engine;
         }
 
-        content = ejs.renderFile(template, {result: parser.result});
         ext = path.extname(template);
-
-        self.push(new gutil.File({
-          cwd: cwd,
-          base: dir,
-          path: path.join(dir, options.spriteMeta + '.' + ext),
-          contents: content
-        }));
+        ejs.renderFile(template, {result: parser.result}, function(err, content){
+          if (err) {
+            return cb(new PluginError(PLUGIN_NAME, err));
+          }
+          cb(null, new gutil.File({
+            cwd: cwd,
+            base: dir,
+            path: path.join(dir, options.spriteMeta + '.' + ext),
+            contents: new Buffer(content)
+          }))
+        });
       }
-      cb();
     }
   );
   return stream;
