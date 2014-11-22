@@ -4,13 +4,10 @@ var PluginError = gutil.PluginError;
 var path = require('path');
 var layout = require('layout');
 var _ = require('lodash');
+var ejs = require('ejs');
 
 var imageLib = require('./lib/image');
 var layerLib = require('./lib/layer-info');
-
-var engines = {
-  json: require('./lib/engines/json')
-};
 
 var extentions = [
   '.png'
@@ -18,11 +15,16 @@ var extentions = [
 
 var PLUGIN_NAME = 'gulp-spritegen';
 
+var templates = {
+  json: path.join(__dirname, './lib/templates.json')
+};
+
 module.exports = function (config) {
   var defaultConfig = {
     engine: 'json',
     angorithm: 'binary-tree',
     ratio: 1,
+    gutter: 0,
     spriteImg: 'sprite',
     spriteMeta: 'sprite'
   };
@@ -80,23 +82,31 @@ module.exports = function (config) {
           contents: imageLib.generateOutput(layerInfo)
         }));
       });
-      var engineFunc = null;
+
       if (_.isFunction(options.engine)) {
-        engineFunc = options.engine;
-      } else if (_.isString(options.engine)) {
-        if (engines[options.engine]) {
-          engineFunc = engines[options.engine];
-        } else {
-          // TODO: PARSING FILE
+        var engineRes = options.engine(parser.result);
+        if (engineRes) {
+          self.push(engineRes);
         }
+      } else {
+        var template;
+        if (templates[options.engine]) {
+          template = templates[options.engine];
+        } else {
+          // TODO check file path
+          template = options.engine;
+        }
+
+        content = ejs.renderFile(template, {result: parser.result});
+        ext = path.extname(template);
+
+        self.push(new gutil.File({
+          cwd: cwd,
+          base: dir,
+          path: path.join(dir, options.spriteMeta + '.' + ext),
+          contents: content
+        }));
       }
-      var engineRes = engineFunc.call({}, parser.result);
-      self.push(new gutil.File({
-        cwd: cwd,
-        base: dir,
-        path: path.join(dir, options.spriteMeta + '.' + engineRes.ext),
-        contents: engineRes.content
-      }));
       cb();
     }
   );
