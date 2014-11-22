@@ -13,7 +13,7 @@ var engines = {
 };
 
 var extentions = [
-  'png'
+  '.png'
 ];
 
 var PLUGIN_NAME = 'gulp-spritegen';
@@ -39,7 +39,7 @@ module.exports = function (config) {
         this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported'));
         return cb();
       }
-      if (-1 == extentions.indexOf(path.extension(file.path))) {
+      if (-1 == extentions.indexOf(path.extname(file.path))) {
         this.emit('error', new PluginError(PLUGIN_NAME, 'Invalid type of file: ' + file.path));
         return cb();
       }
@@ -82,7 +82,7 @@ module.exports = function (config) {
       if (_.isFunction(options.engine)) {
         engineFunc = options.engine;
       } else if (_.isString(options.engine)) {
-        if (engineFunc[options.engine]) {
+        if (engines[options.engine]) {
           engineFunc = engines[options.engine];
         } else {
           // TODO: PARSING FILE
