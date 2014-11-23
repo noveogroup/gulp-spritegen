@@ -98,7 +98,7 @@ module.exports = function (config) {
       if (_.isFunction(options.engine)) {
         var engineRes = options.engine(parser.result);
         if (engineRes) {
-          return cb(null, engineRes);
+          self.push(engineRes);
         }
         return cb();
       } else {
