@@ -5,7 +5,8 @@ gulp.task('default', function () {
   gulp.src('./files/*.png').
     pipe(ss({
       ratio: [1, 2],
-      algorithm: 'binary-tree'
+      algorithm: 'binary-tree',
+      engines: 'scss'
     }))
     .pipe(gulp.dest('./dest'));
 });
