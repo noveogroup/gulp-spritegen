@@ -18,7 +18,8 @@ var PLUGIN_NAME = 'gulp-spritegen';
 var templates = {
   json: path.join(__dirname, './lib/templates/template.json'),
   scss: path.join(__dirname, './lib/templates/template.scss'),
-  less: path.join(__dirname, './lib/templates/template.less')
+  less: path.join(__dirname, './lib/templates/template.less'),
+  css: path.join(__dirname, './lib/templates/template.css')
 };
 
 module.exports = function (config) {

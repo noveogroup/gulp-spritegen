@@ -6,8 +6,8 @@ gulp.task('default', function () {
     pipe(ss({
       ratio: [1, 2, 3, 4],
       algorithm: 'binary-tree',
-      gutter: 2,
-      engine: 'less',
+      gutter: 10,
+      engine: 'css',
     }))
     .pipe(gulp.dest('./dest'));
 });
