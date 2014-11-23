@@ -6,7 +6,11 @@
   "scripts": {
     "lint": "jshint index.js test/ lib/"
   },
-    "keywords": [
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noveogroup/gulp-spritegen.git"
+  },
+  "keywords": [
     "gulpplugin",
     "gulp",
     "responsive",
