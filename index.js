@@ -31,8 +31,10 @@ module.exports = function (config) {
   };
   var options = _.defaults(config, defaultConfig);
   if (!_.isArray(options.ratio)) {
-    options.ratio = [ratioList];
+    options.ratio = [options.ratio];
   }
+  options.ratio = options.ratio.sort();
+  if (options.ratio[0]!==1) options.ratio.unshift(1);
   var images = [];
   var dir = '';
   var cwd = '';
