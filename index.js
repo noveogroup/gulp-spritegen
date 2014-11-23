@@ -77,7 +77,7 @@ module.exports = function (config) {
         var layerInfo = layer['export']();
         parser.addLayerInfo(layerInfo, options.spriteImg);
         self.push(new gutil.File({
-          cwd: dir,
+          cwd: cwd,
           base: dir,
           path: path.join(dir, options.spriteImg + '-' + ratio + '.png'),
           contents: imageLib.generateOutput(layerInfo)
@@ -104,12 +104,13 @@ module.exports = function (config) {
           if (err) {
             return cb(new PluginError(PLUGIN_NAME, err));
           }
-          cb(null, new gutil.File({
+          self.push(new gutil.File({
             cwd: cwd,
             base: dir,
-            path: path.join(dir, options.spriteMeta + '.' + ext),
+            path: path.join(dir, options.spriteMeta + ext),
             contents: new Buffer(content)
-          }))
+          }));
+          cb();
         });
       }
     }
