@@ -47,6 +47,11 @@ module.exports = function (config) {
       }
       cwd = file.cwd;
       dir = file.base;
+      var image = imageLib.getImageObject(file);
+      if (_.isNull(image)) {
+        this.emit('error', new PluginError(PLUGIN_NAME, 'Invalid file format: ' + file.path));
+        return cb();
+      }
       images.push(imageLib.getImageObject(file));
       cb();
     },
