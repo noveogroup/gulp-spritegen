@@ -1,3 +1,5 @@
+'use strict';
+
 var through = require('through2');
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
@@ -106,7 +108,7 @@ module.exports = function (config) {
           template = options.engine;
         }
 
-        ext = path.extname(template);
+        var ext = path.extname(template);
         ejs.renderFile(template, {result: parser.result}, function(err, content){
           if (err) {
             return cb(new PluginError(PLUGIN_NAME, err));
