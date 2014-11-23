@@ -1,5 +1,18 @@
 <% for (sprite in result){ %>
-.sprite-<%- sprite %> {
-  
-}
-<% } %>
+.sprite-<%- sprite %>() {<%
+for (ratio in result[sprite]){ 
+  var image = result[sprite][ratio]; 
+  if (ratio == 1) {%>
+  width:<%- image.width %>px;
+  height:<%- image.height %>px;
+  background-size: <%- image.width %>px <%- image.height %>px;
+  background-position: -<%- image.x %>px -<%- image.y %>px;
+  background-image: url("<%- image.filename %>@1x.png");<%
+  } else {%>
+  @media (min-resolution: <%- image.ratio %>dppx) {
+    background-position: -<%- image.x/image.ratio %>px -<%- image.y/image.ratio %>px;
+    background-image: url("<%- image.filename %>@<%- image.ratio %>x.png");
+  }<%
+  } 
+}%>
+}<% } %>
