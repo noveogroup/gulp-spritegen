@@ -7,7 +7,7 @@ gulp.task('default', function () {
       ratio: [1, 2, 3, 4],
       algorithm: 'binary-tree',
       gutter: 10,
-      engine: 'css',
+      engine: 'scss',
     }))
     .pipe(gulp.dest('./dest'));
 });

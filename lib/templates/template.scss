@@ -1,4 +1,4 @@
-$base-sprite-path: "./";
+$base-sprite-path: "./" !default;
 
 <% for (sprite in result) { %>
   $sprite-<%- sprite %>: (
@@ -7,6 +7,7 @@ $base-sprite-path: "./";
       height: <%- result[sprite][ratio].height %>px,
       position: <%- result[sprite][ratio].x %>px <%- result[sprite][ratio].y %>px,
       img-url: <%- result[sprite][ratio].filename %>,
+      size: <%- result[sprite][ratio].sprite.width %>px <%- result[sprite][ratio].sprite.height %>px,
       ),
     <% } %> );
 <% } %>
@@ -27,11 +28,11 @@ $base-sprite-path: "./";
     @include resolution( $ratio ) {
       $prop: map-get( $sprite, $ratio );
 
-      width: map-get( $prop, $width );
-      height: map-get( $prop, $height );
-      background-position: map-get( $prop, $position );
-      background-image: url( "#{$base-sprite-path}#{map-get( $prop, $position )}@#{$ratio}x.png" );
+      width: map-get( $prop, width );
+      height: map-get( $prop, height );
+      background-position: map-get( $prop, position );
+      background-image: url( "#{$base-sprite-path}#{map-get( $prop, img-url )}@#{$ratio}x.png" );
+      background-position: map-get( $prop, size );
     }
   }
 }
->>>>>>> template-scss
