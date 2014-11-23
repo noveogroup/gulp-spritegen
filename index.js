@@ -1,3 +1,5 @@
+'use strict';
+
 var through = require('through2');
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
@@ -29,8 +31,10 @@ module.exports = function (config) {
   };
   var options = _.defaults(config, defaultConfig);
   if (!_.isArray(options.ratio)) {
-    options.ratio = [ratioList];
+    options.ratio = [options.ratio];
   }
+  options.ratio = options.ratio.sort();
+  if (options.ratio[0]!==1) options.ratio.unshift(1);
   var images = [];
   var dir = '';
   var cwd = '';
@@ -94,7 +98,7 @@ module.exports = function (config) {
       if (_.isFunction(options.engine)) {
         var engineRes = options.engine(parser.result);
         if (engineRes) {
-          return cb(null, engineRes);
+          self.push(engineRes);
         }
         return cb();
       } else {
@@ -106,7 +110,7 @@ module.exports = function (config) {
           template = options.engine;
         }
 
-        ext = path.extname(template);
+        var ext = path.extname(template);
         ejs.renderFile(template, {result: parser.result}, function(err, content){
           if (err) {
             return cb(new PluginError(PLUGIN_NAME, err));
