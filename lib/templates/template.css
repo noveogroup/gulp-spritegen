@@ -1,18 +1,20 @@
-<% for (sprite in result){ %>
-.sprite-<%- sprite %>() {<%
+<% for (sprite in result){
 for (ratio in result[sprite]){
   var image = result[sprite][ratio];
   if (ratio == 1) {%>
+.sprite-<%- sprite %> {
   width:<%- image.width %>px;
   height:<%- image.height %>px;
   background-size: <%- image.width %>px <%- image.height %>px;
   background-position: -<%- image.x %>px -<%- image.y %>px;
   background-image: url("<%- image.filename %>@1x.png");<%
   } else {%>
-  @media (min-resolution: <%- image.ratio %>dppx) {
+@media (min-resolution: <%- image.ratio %>dppx) {
+  .sprite-<%- sprite %> {
     background-position: -<%- image.x/image.ratio %>px -<%- image.y/image.ratio %>px;
     background-image: url("<%- image.filename %>@<%- image.ratio %>x.png");
   }<%
   }
-}%>
-}<% } %>
+%>
+}<%
+}} %>
