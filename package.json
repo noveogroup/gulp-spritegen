@@ -1,10 +1,21 @@
 {
   "name": "gulp-spritegen",
-  "version": "0.0.3",
-  "private": true,
+  "description": "generates sprites for different densities (iPhone 6+)",
+  "version": "0.9.3",
+  "license": "MIT",
   "scripts": {
     "lint": "jshint index.js test/ lib/"
   },
+    "keywords": [
+    "gulpplugin",
+    "gulp",
+    "responsive",
+    "img",
+    "images",
+    "sprite",
+    "iphone",
+    "retina"
+  ],
   "dependencies": {
     "canvas": "1.1",
     "ejs": "^1.0.0",

@@ -41,3 +41,7 @@ gulp.src('./images/icons/*.png')
 ```
 
 As a result you can see in `./dest` directory folowing files: `icons@1x.png`, `icons@2x.png`, `icons.css`
+
+## License
+
+MIT
