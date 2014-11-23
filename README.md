@@ -24,7 +24,7 @@ Plugin have folowing default engines:
   * `myImage-30.png` (where: `30` - width, height calculates automatically)
   * `myImage-x35.png` (where: `35` - height, width calculates automatically)
 
-> Size which you define in filename means size of that image for _first_ ratio. Best practice is creating image with big size(e.g. 1024x1024) with name containing small size(e.g. 128x128).
+> Size which you define in filename means size of that image for **first** ratio. Best practice is creating image with big size(e.g. 1024x1024) with name containing small size(e.g. 128x128).
 
 ### Examples
 Simple usage:
