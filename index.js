@@ -77,14 +77,16 @@ module.exports = function (config) {
           layer.addItem(layerItem);
         });
         var layerInfo = layer['export']();
-        parser.addLayerInfo(layerInfo, options.spriteImg);
-        imageLib.generateOutput(layerInfo);
-        self.push(new gutil.File({
-          cwd: cwd,
-          base: dir,
-          path: path.join(dir, options.spriteImg + '-' + ratio + '.png'),
-          contents: imageLib.generateOutput(layerInfo)
-        }));
+        var outContent = imageLib.generateOutput(layerInfo);
+        if (outContent) {
+          parser.addLayerInfo(layerInfo, options.spriteImg);
+          self.push(new gutil.File({
+            cwd: cwd,
+            base: dir,
+            path: path.join(dir, options.spriteImg + '-' + ratio + '.png'),
+            contents: outContent
+          }));
+        }
       });
 
       if (_.isFunction(options.engine)) {
