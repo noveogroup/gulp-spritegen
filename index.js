@@ -83,7 +83,7 @@ module.exports = function (config) {
           self.push(new gutil.File({
             cwd: cwd,
             base: dir,
-            path: path.join(dir, options.spriteImg + '-' + ratio + '.png'),
+            path: path.join(dir, options.spriteImg + '@' + ratio + 'x.png'),
             contents: outContent
           }));
         }
