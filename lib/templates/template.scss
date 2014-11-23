@@ -1,15 +1,18 @@
 $base-sprite-path: "./" !default;
 
-<% for (sprite in result) { %>
-  $sprite-<%- sprite %>: (
-    <% for (ratio in result[sprite]) { %><%- ratio %>: (
-      width: <%- result[sprite][ratio].width %>px,
-      height: <%- result[sprite][ratio].height %>px,
-      position: <%- result[sprite][ratio].x %>px <%- result[sprite][ratio].y %>px,
-      img-url: <%- result[sprite][ratio].filename %>,
-      size: <%- result[sprite][ratio].sprite.width %>px <%- result[sprite][ratio].sprite.height %>px,
-      ),
-    <% } %> );
+<% for (sprite in result) { var i = 0, width, height; %>
+$sprite-<%- sprite %>: (
+  backgrounds: (<% for (ratio in result[sprite]) {
+    var img = result[sprite][ratio], ratio = img.ratio; 
+    if ( i++ < 1 ) { width = img.width / ratio, height = img.height / ratio } %>
+  ( ratio:    <%- ratio %>,
+    size:     <%- img.sprite.width /  ratio %>px <%- img.sprite.height /  ratio %>px,
+    position: <%- -1 * img.x / ratio %>px <%- -1 * img.y / ratio %>px,
+    img-url:  <%- img.filename %>, ),
+<% }%>),
+  width:    <%- width %>px,
+  height:   <%- height %>px,
+);
 <% } %>
 
 @mixin resolution( $res ) {
@@ -22,17 +25,17 @@ $base-sprite-path: "./" !default;
   }
 }
 
-@mixin sprite( $sprite ) {
-  $ratios: map-keys( $sprite );
-  @each $ratio in $ratios {
-    @include resolution( $ratio ) {
-      $prop: map-get( $sprite, $ratio );
 
-      width: map-get( $prop, width );
-      height: map-get( $prop, height );
-      background-position: map-get( $prop, position );
-      background-image: url( "#{$base-sprite-path}#{map-get( $prop, img-url )}@#{$ratio}x.png" );
-      background-position: map-get( $prop, size );
+@mixin sprite( $collection ) {
+  width:  map-get( $collection, width );
+  height: map-get( $collection, height );
+
+  @each $bg in map-get( $collection, backgrounds ){
+    $ratio: map-get( $bg, ratio );
+
+    @include resolution( $ratio ) {
+      $bg-img: url( "#{$base-sprite-path}#{map-get( $bg, img-url )}@#{$ratio}x.png" );
+      background: $bg-img map-get( $bg, position ) / map-get( $bg, size );
     }
   }
 }
