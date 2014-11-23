@@ -69,14 +69,15 @@ module.exports = function (config) {
             width: (image.size.width + 2 * options.gutter) * ratio,
             height: (image.size.height + 2 * options.gutter) * ratio
           };
-          if (layerItem.width > image.content.width ||
-              layerItem.height > image.content.height) {
+          if ((layerItem.width - 2 * layerItem.meta.gutter) > image.content.width ||
+              (layerItem.height - 2 * layerItem.meta.gutter) > image.content.height) {
             return;
           }
           layer.addItem(layerItem);
         });
         var layerInfo = layer['export']();
         parser.addLayerInfo(layerInfo, options.spriteImg);
+        imageLib.generateOutput(layerInfo);
         self.push(new gutil.File({
           cwd: cwd,
           base: dir,
