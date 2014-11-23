@@ -1,4 +1,4 @@
-# GULP-SPRITEGEN
+# [gulp](http://gulpjs.com)-spritegen
 
 ### Requirements
 * [Cairo](https://github.com/Automattic/node-canvas/wiki)
