@@ -4,10 +4,10 @@ var ss = require('../index.js');
 gulp.task('default', function () {
   gulp.src('./files/*.png').
     pipe(ss({
-      ratio: [1, 2, 3, 4],
+      ratio: [2.4, 1.2, 3, 4.1, 1],
       algorithm: 'binary-tree',
       gutter: 10,
-      engine: 'scss',
+      engine: 'css',
     }))
     .pipe(gulp.dest('./dest'));
 });

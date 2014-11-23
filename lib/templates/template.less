@@ -1,15 +1,17 @@
-<% for (sprite in result){ %>
+<% for (var sprite in result){ %>
 .sprite-<%- sprite %>() {<%
-for (ratio in result[sprite]){
+for (var ratio in result[sprite]){
   var image = result[sprite][ratio];
-  if (ratio == 1) {%>
+  if (image.ratio == 1) {%>
   width:<%- image.width %>px;
   height:<%- image.height %>px;
   background-size: <%- image.sprite.width %>px <%- image.sprite.height %>px;
   background-position: -<%- image.x %>px -<%- image.y %>px;
   background-image: url("<%- image.filename %>@1x.png");<%
   } else {%>
-  @media (min-resolution: <%- image.ratio %>dppx) {
+  @media (-webkit-min-device-pixel-ratio: <%- image.ratio %>),
+      (min-resolution: <%- image.ratio * 96 %>dpi),
+      (min-resolution: <%- image.ratio %>dppx) {
     background-size: <%- image.sprite.width/image.ratio %>px <%- image.sprite.height/image.ratio %>px;
     background-position: -<%- image.x/image.ratio %>px -<%- image.y/image.ratio %>px;
     background-image: url("<%- image.filename %>@<%- image.ratio %>x.png");
