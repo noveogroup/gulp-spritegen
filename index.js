@@ -8,6 +8,7 @@ var ejs = require('ejs');
 
 var imageLib = require('./lib/image');
 var layerLib = require('./lib/layer-info');
+var autoloader = require('./lib/autoloader');
 
 var extentions = [
   '.png'
@@ -15,12 +16,7 @@ var extentions = [
 
 var PLUGIN_NAME = 'gulp-spritegen';
 
-var templates = {
-  json: path.join(__dirname, './lib/templates/template.json'),
-  scss: path.join(__dirname, './lib/templates/template.scss'),
-  less: path.join(__dirname, './lib/templates/template.less'),
-  css: path.join(__dirname, './lib/templates/template.css')
-};
+var templates = autoloader(path.join(__dirname, './lib/templates'));
 
 module.exports = function (config) {
   var defaultConfig = {
