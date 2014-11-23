@@ -20,21 +20,24 @@ Plugin have folowing default engines:
 ### Restrictions
 * All files whish you piped to this plugin should be an image and have PNG format.
 * All files which you piped to this plugin should have one of the folowing formats:
-  * myImage-30x35.png (where: 30 - width, 35 - height)
-  * myImage-30.png (where: 30 - width, height calculates automatically)
-  * myImage-x35.png (where: 35 - height, width calculates automatically)
-> Size which you define in filename means size of that image for *first* ratio. Best practice is creating image with big size(e.g. 1024x1024) with name containing small size(e.g. 128x128).
+  * `myImage-30x35.png` (where: `30` - width, `35` - height)
+  * `myImage-30.png` (where: `30` - width, height calculates automatically)
+  * `myImage-x35.png` (where: `35` - height, width calculates automatically)
+
+> Size which you define in filename means size of that image **for ratio equals to one**. Best practice is creating image with big size(e.g. 1024x1024) with name containing small size(e.g. 128x128).
 
 ### Examples
 Simple usage:
-<pre><code>
+
+```js
 gulp.src('./images/icons/*.png')
   .pipe(spritegen({
     ratio: [1, 2],
     spriteImg: 'icons',
     spriteMeta: 'incons'
     engine: 'css'
-  }))`
+  }))
   .pipe(gulp.dest('./dest'));
-</code></pre>
+```
+
 As a result you can see in `./dest` directory folowing files: `icons@1x.png`, `icons@2x.png`, `icons.css`
