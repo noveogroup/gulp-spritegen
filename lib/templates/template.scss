@@ -1,1 +1,36 @@
- <%- JSON.stringify(result) %>
+$base-sprite-path: "./";
+
+<% for (sprite in result) { %>
+  $sprite-<%- sprite %>: (
+    <% for (ratio in result[sprite]) { %><%- ratio %>: (
+      width: <%- result[sprite][ratio].width %>px,
+      height: <%- result[sprite][ratio].height %>px,
+      position: <%- result[sprite][ratio].x %>px <%- result[sprite][ratio].y %>px,
+      img-url: <%- result[sprite][ratio].filename %>,
+      ),
+    <% } %> );
+<% } %>
+
+@mixin resolution( $res ) {
+  @if $res == 1 {
+    @content; }
+  @else {
+    @media (-webkit-min-device-pixel-ratio: #{$res}), (min-resolution: #{$res*96}dpi) {
+      @content;
+    }
+  }
+}
+
+@mixin sprite( $sprite ) {
+  $ratios: map-keys( $sprite );
+  @each $ratio in $ratios {
+    @include resolution( $ratio ) {
+      $prop: map-get( $sprite, $ratio );
+
+      width: map-get( $prop, $width );
+      height: map-get( $prop, $height );
+      background-position: map-get( $prop, $position );
+      background-image: url( "#{$base-sprite-path}#{map-get( $prop, $position )}@#{$ratio}x.png" );
+    }
+  }
+}
