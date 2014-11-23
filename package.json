@@ -6,7 +6,6 @@
     "lint": "jshint index.js test/ lib/"
   },
   "dependencies": {
-    "async": "0.9",
     "canvas": "1.1",
     "ejs": "^1.0.0",
     "gulp-util": "3.0",
