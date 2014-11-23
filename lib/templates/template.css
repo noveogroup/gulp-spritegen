@@ -5,12 +5,13 @@ for (ratio in result[sprite]){
 .sprite-<%- sprite %> {
   width:<%- image.width %>px;
   height:<%- image.height %>px;
-  background-size: <%- image.width %>px <%- image.height %>px;
+  background-size: <%- image.sprite.width %>px <%- image.sprite.height %>px;
   background-position: -<%- image.x %>px -<%- image.y %>px;
   background-image: url("<%- image.filename %>@1x.png");<%
   } else {%>
 @media (min-resolution: <%- image.ratio %>dppx) {
   .sprite-<%- sprite %> {
+    background-size: <%- image.sprite.width/image.ratio %>px <%- image.sprite.height/image.ratio %>px;
     background-position: -<%- image.x/image.ratio %>px -<%- image.y/image.ratio %>px;
     background-image: url("<%- image.filename %>@<%- image.ratio %>x.png");
   }<%
