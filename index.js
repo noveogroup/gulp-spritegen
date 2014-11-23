@@ -16,7 +16,8 @@ var extentions = [
 var PLUGIN_NAME = 'gulp-spritegen';
 
 var templates = {
-  json: path.join(__dirname, './lib/templates.json')
+  json: path.join(__dirname, './lib/templates/template.json'),
+  scss: path.join(__dirname, './lib/templates/template.scss')
 };
 
 module.exports = function (config) {
@@ -62,10 +63,11 @@ module.exports = function (config) {
             meta: {
               name: image.name,
               content: image.content,
-              ratio: ratio
+              ratio: ratio,
+              gutter: options.gutter * ratio
             },
-            width: image.size.width * ratio,
-            height: image.size.height * ratio
+            width: (image.size.width + 2 * options.gutter) * ratio,
+            height: (image.size.height + 2 * options.gutter) * ratio
           };
           if (layerItem.width > image.content.width ||
               layerItem.height > image.content.height) {
@@ -74,9 +76,9 @@ module.exports = function (config) {
           layer.addItem(layerItem);
         });
         var layerInfo = layer['export']();
-        parser.addLayerInfo(layerInfo);
+        parser.addLayerInfo(layerInfo, options.spriteImg);
         self.push(new gutil.File({
-          cwd: dir,
+          cwd: cwd,
           base: dir,
           path: path.join(dir, options.spriteImg + '-' + ratio + '.png'),
           contents: imageLib.generateOutput(layerInfo)
@@ -86,8 +88,9 @@ module.exports = function (config) {
       if (_.isFunction(options.engine)) {
         var engineRes = options.engine(parser.result);
         if (engineRes) {
-          self.push(engineRes);
+          return cb(null, engineRes);
         }
+        return cb();
       } else {
         var template;
         if (templates[options.engine]) {
@@ -97,17 +100,20 @@ module.exports = function (config) {
           template = options.engine;
         }
 
-        content = ejs.renderFile(template, {result: parser.result});
         ext = path.extname(template);
-
-        self.push(new gutil.File({
-          cwd: cwd,
-          base: dir,
-          path: path.join(dir, options.spriteMeta + '.' + ext),
-          contents: content
-        }));
+        ejs.renderFile(template, {result: parser.result}, function(err, content){
+          if (err) {
+            return cb(new PluginError(PLUGIN_NAME, err));
+          }
+          self.push(new gutil.File({
+            cwd: cwd,
+            base: dir,
+            path: path.join(dir, options.spriteMeta + ext),
+            contents: new Buffer(content)
+          }));
+          cb();
+        });
       }
-      cb();
     }
   );
   return stream;

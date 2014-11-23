@@ -1,1 +1,3 @@
- <%- JSON.stringify(result) %>
+ <%- result.forEach(function() {) %>
+ 
+ <%- } %>
