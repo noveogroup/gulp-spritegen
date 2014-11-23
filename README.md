@@ -29,13 +29,15 @@ Plugin have folowing default engines:
 ### Examples
 Simple usage:
 
-  gulp.src('./images/icons/*.png')
-    .pipe(spritegen({
-      ratio: [1, 2],
-      spriteImg: 'icons',
-      spriteMeta: 'incons'
-      engine: 'css'
-    }))
-    .pipe(gulp.dest('./dest'));
+```js
+gulp.src('./images/icons/*.png')
+  .pipe(spritegen({
+    ratio: [1, 2],
+    spriteImg: 'icons',
+    spriteMeta: 'incons'
+    engine: 'css'
+  }))
+  .pipe(gulp.dest('./dest'));
+```
 
 As a result you can see in `./dest` directory folowing files: `icons@1x.png`, `icons@2x.png`, `icons.css`
