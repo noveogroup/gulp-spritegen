@@ -12,14 +12,14 @@
 * `{String|Function} engine` Engine which used for create stylesheets for sprites.
 
 ### Engines
-Plugin have folowing default engines:
+Plugin have following default engines:
 * `css` (Using CSS as stylesheet for sprites)
 * `less` (Using LESS as stylesheet for sprites)
 * `scss` (Using SCSS as stylesheet for sprites)
 
 ### Restrictions
-* All files whish you piped to this plugin should be an image and have PNG format.
-* All files which you piped to this plugin should have one of the folowing formats:
+* All files which you piped to this plugin should be an image and have PNG format.
+* All files which you piped to this plugin should have one of the following formats:
   * `myImage-30x35.png` (where: `30` - width, `35` - height)
   * `myImage-30.png` (where: `30` - width, height calculates automatically)
   * `myImage-x35.png` (where: `35` - height, width calculates automatically)
@@ -40,7 +40,7 @@ gulp.src('./images/icons/*.png')
   .pipe(gulp.dest('./dest'));
 ```
 
-As a result you can see in `./dest` directory folowing files: `icons@1x.png`, `icons@2x.png`, `icons.css`
+As a result you can see in `./dest` directory following files: `icons@1x.png`, `icons@2x.png`, `icons.css`
 
 ## License
 
