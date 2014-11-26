@@ -4,7 +4,7 @@
 * [Cairo](https://github.com/Automattic/node-canvas/wiki)
 
 ### Options
-* `{String|Array<String>} ratio` List of required ratios. Each output sprite identified by ratio(e.g. `icons@2x.png` for ratio: `2`)
+* `{Integer|Array<Integer>} ratio` List of required ratios. Each output sprite identified by ratio(e.g. `icons@2x.png` for ratio: `2`)
 * `{String} spriteImg` Name of output image.
 * `{String} spriteMeta` Name of file contains stylesheets for sprites.
 * `{Integer} gutter` Size of frame around each of inputs image in final sprite.
