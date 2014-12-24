@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '0.10'
+  - '0.10'
 deploy:
   provider: npm
   email: npm@noveogroup.com
@@ -9,3 +9,5 @@ deploy:
   on:
     tags: true
     repo: noveogroup/gulp-spritegen
+before_install:
+  - sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
