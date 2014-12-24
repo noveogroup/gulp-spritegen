@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- '0.10'
+deploy:
+  provider: npm
+  email: npm@noveogroup.com
+  api_key:
+    secure: TVsw5qRXSkUIR0uctVbVyv/JOHyx4fByI2g12qB1BArHI+/x+PbgO3BFh10IN0/geRWX40udqGqeUl4SOJIUXtl4EYB1qb1aBdVKDLwNVJbe/oQMJOMWFsr82ohDFK6j95pgEQKXngc4UhwfykQ2zKRJLIcLh2YAWYgCguM5C+0=
+  on:
+    tags: true
+    repo: noveogroup/gulp-spritegen

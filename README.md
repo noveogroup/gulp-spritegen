@@ -1,4 +1,4 @@
-# [gulp](http://gulpjs.com)-spritegen
+# [gulp](http://gulpjs.com)-spritegen [![Build Status](https://travis-ci.org/noveogroup/gulp-spritegen.svg)](https://travis-ci.org/noveogroup/gulp-spritegen)
 
 ### Requirements
 * [Cairo](https://github.com/Automattic/node-canvas/wiki)
