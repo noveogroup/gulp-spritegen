@@ -24,8 +24,9 @@ describe('gulp-spritegen', function () {
     });
     it('should generate valid json map', function (done) {
       var spriteGen = sg({});
-      var foundJson = false
+      var foundJson = false;
       spriteGen.on('data', function (newFile) {
+        /*jshint -W069 */
         if (path.extname(newFile.path) == '.json') {
           var outJSON = JSON.parse(newFile.contents);
           assert(outJSON['chrome']);

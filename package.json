@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "jshint index.js test/ lib/",
-    "test": "mocha test/tests.js"
+    "test": "npm run lint && mocha"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "through2": "^0.6.3"
   },
   "devDependencies": {
-    "jshint": "^2.5.10"
+    "jshint": "^2.5.10",
+    "mocha": "^2.1.0"
   }
 }
