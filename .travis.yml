@@ -7,7 +7,9 @@ deploy:
   api_key:
     secure: TVsw5qRXSkUIR0uctVbVyv/JOHyx4fByI2g12qB1BArHI+/x+PbgO3BFh10IN0/geRWX40udqGqeUl4SOJIUXtl4EYB1qb1aBdVKDLwNVJbe/oQMJOMWFsr82ohDFK6j95pgEQKXngc4UhwfykQ2zKRJLIcLh2YAWYgCguM5C+0=
   on:
+    branch: master
     tags: true
+    all_branches: true
     repo: noveogroup/gulp-spritegen
 before_install:
   - sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
