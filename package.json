@@ -4,7 +4,8 @@
   "version": "0.9.4",
   "license": "MIT",
   "scripts": {
-    "lint": "jshint index.js test/ lib/"
+    "lint": "jshint index.js test/ lib/",
+    "test": "mocha test/tests.js"
   },
   "repository": {
     "type": "git",
@@ -21,16 +22,15 @@
     "retina"
   ],
   "dependencies": {
-    "canvas": "1.1",
+    "canvas": "^1.1.6",
     "ejs": "^1.0.0",
-    "gulp-util": "3.0",
-    "layout": "2.0",
-    "lodash": "2.4",
-    "parse-image-dimensions": "1.0",
-    "through2": "0.6"
+    "gulp-util": "^3.0.1",
+    "layout": "^2.0.2",
+    "lodash": "^2.4.1",
+    "parse-image-dimensions": "^1.0.0",
+    "through2": "^0.6.3"
   },
   "devDependencies": {
-    "gulp": "3.8",
     "jshint": "^2.5.10"
   }
 }

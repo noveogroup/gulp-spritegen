@@ -23,7 +23,7 @@ var templates = autoloader(path.join(__dirname, './lib/templates'));
 module.exports = function (config) {
   var defaultConfig = {
     engine: 'json',
-    angorithm: 'binary-tree',
+    algorithm: 'binary-tree',
     ratio: 1,
     gutter: 0,
     spriteImg: 'sprite',
@@ -42,18 +42,24 @@ module.exports = function (config) {
     function (file, enc, cb) {
       if (file.isNull()) return cb();
       if (file.isStream()) {
-        this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported'));
+        this.emit('error',
+          new PluginError(PLUGIN_NAME, 'Streams are not supported')
+        );
         return cb();
       }
       if (-1 == extentions.indexOf(path.extname(file.path))) {
-        this.emit('error', new PluginError(PLUGIN_NAME, 'Invalid type of file: ' + file.path));
+        this.emit('error',
+          new PluginError(PLUGIN_NAME, 'Invalid type of file: ' + file.path)
+        );
         return cb();
       }
       cwd = file.cwd;
       dir = file.base;
       var image = imageLib.getImageObject(file);
       if (_.isNull(image)) {
-        this.emit('error', new PluginError(PLUGIN_NAME, 'Invalid file format: ' + file.path));
+        this.emit('error',
+          new PluginError(PLUGIN_NAME, 'Invalid file format: ' + file.path)
+        );
         return cb();
       }
       images.push(imageLib.getImageObject(file));
