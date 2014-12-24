@@ -1,7 +1,7 @@
 {
   "name": "gulp-spritegen",
   "description": "generates sprites for different densities (iPhone 6+)",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "license": "MIT",
   "scripts": {
     "lint": "jshint index.js test/ lib/",
