@@ -14,7 +14,7 @@ deploy:
   provider: npm
   email: npm@noveogroup.com
   api_key:
-    secure: TVsw5qRXSkUIR0uctVbVyv/JOHyx4fByI2g12qB1BArHI+/x+PbgO3BFh10IN0/geRWX40udqGqeUl4SOJIUXtl4EYB1qb1aBdVKDLwNVJbe/oQMJOMWFsr82ohDFK6j95pgEQKXngc4UhwfykQ2zKRJLIcLh2YAWYgCguM5C+0=
+    secure: lOyzu/tLW4jQDu5km15x/+7Ocn74NZxoRn3Zy7G9bPBc7hdQraj3dNQWkFad98jVouFxqFSxCtUuF4QvgKXSMq5f5rHTwZLns+bB2ZuvFvbT8L6dkbArn8sENgFtwoyFFMjOdk6WggHNGvyBlN555oFoYcKrmUrEOEmXpTRJjw4=
   on:
     branch: master
     tags: true
